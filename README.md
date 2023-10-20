@@ -9,7 +9,7 @@
 
 <h1 align="center">Donanım</h1>
 
-> Most important think is hetnez , [Hetzner](https://github.com/ruesandora/Hetzner) So i will prefer hetzner
+> Most important think is hetznez , [Hetzner](https://github.com/ruesandora/Hetzner) So i will prefer hetzner
 
 ```console
 # Min
