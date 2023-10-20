@@ -39,9 +39,10 @@ sudo swapon /swapfile
 # We need library and docker setup
 sudo apt -y install apt-transport-https ca-certificates curl gnupg2 software-properties-common
 
-# Let's download Debian compatible Docker. Execute command twitce.
+# Let's download Debian compatible Docker.#
+#Execute command twice.#
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker-archive-keyring.gpg
-# !! Select y  !!
+# !! Select y  !!#
 
 # Bellow here it's a one command , you can copy all of it (If enter is gonna show up , press enter if not no problem)
 sudo add-apt-repository \
