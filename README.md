@@ -1,63 +1,62 @@
 <h1 align="center">Relayz</h1>
 
-> Aktif olduğunuz her gün boyunca 10 RELY token alırsınız.
+> You will earn 10 RELY tokens per day and these rewards will be added to your balance.
 
-> Diğer sorular rehberin sonundadır.
+> All other question will be end of the guide.
 
-> Önemli linkler: [Duyuru](https://t.me/RuesAnnouncement) - [Sohbet](https://t.me/RuesChat) -  [WP Kanalı](https://whatsapp.com/channel/0029VaBcj7V1dAw1H2KhMk34) - [Discord](https://discord.gg/huEG2JNj)
+> I took this repo from Rues , his links: [Duyuru](https://t.me/RuesAnnouncement) - [Sohbet](https://t.me/RuesChat) -  [WP Kanalı](https://whatsapp.com/channel/0029VaBcj7V1dAw1H2KhMk34) - [Discord](https://discord.gg/huEG2JNj)
 
-> Sağ üstten fork & yıldız yapmayı unutmayın!
 
 <h1 align="center">Donanım</h1>
 
-> En muhim olanı internettir, [Hetzner](https://github.com/ruesandora/Hetzner) kullanıyorum.
+> Most important think is hetnez , [Hetzner](https://github.com/ruesandora/Hetzner) So i will prefer hetzner
 
 ```console
-# Minimum
+# Min
 2 CPU 4 RAM - Debian 10 - 11 - 12
 
-# Önerilen
+# Reccomened
 4 CPU 8 RAM - Debian 11
 ```
 
-<h1 align="center">Kurulum</h1>
+<h1 align="center">Setup</h1>
 
-> [Buradan](https://testnet.mynearwallet.com/) bir near testnet wallet'ı oluşturunuz.
+> [From here](https://testnet.mynearwallet.com/) we're gonna create a near wallet.
 
-> Daha sonra [buraya](https://relayz.io/welcome/ruesandora0.testnet) cüzdanı bağlayıp bir profil oluşturunuz.
+> After that [here](https://relayz.io/welcome/didzis.testnet) Connect wallet and create a profile
 
 ```console
-# Güncellemeler
+# Updates
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget
 
-# swap alanı açalım
+# Lets open a swap file
 sudo fallocate -l 5240M /swapfile
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 
-# Gerekli kütüphaneler ve docker kurulumu
+# We need library and docker setup
 sudo apt -y install apt-transport-https ca-certificates curl gnupg2 software-properties-common
 
-# debian uyumlu dockeri indirelim. komutu 2 kez girelim.
+# Let's download Debian compatible Docker. Execute command twitce.
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker-archive-keyring.gpg
-# !! y seçeneğini seçiyoruz !!
+# !! Select y  !!
 
-# Tek komut (enter çıkarsa enterleyin çıkmazsa no problem)
+# Bellow here it's a one command , you can copy all of it (If enter is gonna show up , press enter if not no problem)
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
    $(lsb_release -cs) \
    stable"
 
-# Tekrar güncelleme
+# Again a update
 sudo apt update && sudo apt upgrade -y
 ```
 
-<h1 align="center">Docker ayarlamaları</h1>
+<h1 align="center">Docker settings </h1>
 
 ```console
-# Docker compose ve gerekli ayarlar.
+# Docker compose and necessary settings.
 sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
@@ -65,10 +64,10 @@ newgrp docker
 ```
 
 ```console
-# Güncellemler ve wgeti yüklüyoruz.
+# We are installing updates and wgeti.
 sudo apt update && sudo apt upgrade -y
 
-# docker-compose ayarlamaları
+# docker-compose settings
 curl -s https://api.github.com/repos/docker/compose/releases/latest | grep browser_download_url  | grep docker-compose-linux-x86_64 | cut -d '"' -f 4 | wget -qi -
 chmod +x docker-compose-linux-x86_64
 sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose
@@ -80,51 +79,52 @@ source /etc/bash_completion.d/docker-compose
 echo -e "version: '3'\nservices:\n  web:\n    image: nginx:latest\n    ports:\n     - \"8080:80\"\n    links:\n     - php\n  php:\n    image: php:7-fpm" > docker-compose.yml
 ```
 
-<h1 align="center">Docker testi</h1>
+<h1 align="center">Docker test</h1>
 
 ```console
-# docker testimizi yapıyoruz
+# We're making a docker test
 docker-compose up -d
 docker-compose stop
 docker-compose rm -f
 
-# Bu komutu giriyoruz
+# We're entering this command
 docker run --rm -it  --name test alpine:latest /bin/sh
 
-# açılan konsola bu iki komutu sırayla giriyoruz:
+# We enter these two commands one by one in the opened console.:
 cat /etc/os-release
 exit
 ```
 
-<h1 align="center">Node'umuzu çalıştıralım</h1>
+<h1 align="center">Let's start our node</h1>
 
 ```console
-# gerekli dosyamızı indirip unzip yapalım.
+# Let's download our required file and unzip it.
 wget https://relayz.io/resources/files/binaries/node-cli-x64.zip
 sudo apt install unzip
 unzip node-cli-x64.zip
 
-# izinleri verelim
+# Let's give permissions
 mv node-cli-x64 node-cli
 chmod +x node-cli
 
-# ruesandora.testnet kısmını kendi cüzdan isminizle değiştirip enterleyin.
+# ruesandora.testnet Replace it with your own wallet name and enter.
 ./node-cli init ruesandora.testnet
 
-# çıkan 2 seçenek olacak, ilkini seçip yeni private key oluşturun.
-# komuttan sonra size bir link verecek (rengi pembe büyük ihtimalle), bunu oluşurduğunuz near cüzdanı sayfasında arama çubuğuna yapıştırın.
-# Daha sonra şifrenizi girip onaylama işlemlerini yapın
-# 3-4 dakika kadar bekleyin 
-# Sonrasında sunucunuza geri dönüp enter'e basın.
+# There will be 2 options, select the first one and create a new private key..
+# After the command, it will give you a link (most likely pink), paste it into the search bar on the near wallet page you created.
+#Then enter your password and confirm.
+# Wait for a few minutes 
+# Then go back to your server and press enter.
 
-# Tebrikler.
+# Congrats ! You're a node runner 
 
-# !! NOT: Sunucuzda ki .secret.json u yedekleyin lütfen !!
+# !! NOTE: Please back up .secret.json on your server , you can use Winscp , filezila ext. !!
 ```
 
-> Node'unuzu buradan [online](https://relayz.io/network/nodes) olup olmadığını kontrol edebilirsiniz.
+> You can check your node [online](https://relayz.io/network/nodes) if its online or not.
 
-> Soracağınız diğer sorular [burada](https://relayz.io/network/overview) mevcuttur.
+> All FAQ will be finded in  [here](https://relayz.io/network/overview) 
 
-> Relayz'ın [ortaklarından](https://foresightnews.pro/article/detail/26887) birisi Lifeform'dur, Lifeform'un en büyük yatırımcısı Binance Labsdır, bunuda bırakayım.
+> Partners of Relayz [PARTNER](https://foresightnews.pro/article/detail/26887) one of them is Lifeform, Lifeform's largest investor is Binance Labs.
 
+> Thanks to Rues , show love to him [Twitter/X](https://twitter.com/Ruesandora0)
