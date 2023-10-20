@@ -7,7 +7,7 @@
 > I took this repo from Rues , his links: [Duyuru](https://t.me/RuesAnnouncement) - [Sohbet](https://t.me/RuesChat) -  [WP Kanalı](https://whatsapp.com/channel/0029VaBcj7V1dAw1H2KhMk34) - [Discord](https://discord.gg/huEG2JNj)
 
 
-<h1 align="center">Donanım</h1>
+<h1 align="center">Spec for server</h1>
 
 > Most important think is hetznez , [Hetzner](https://github.com/ruesandora/Hetzner) So i will prefer hetzner
 
